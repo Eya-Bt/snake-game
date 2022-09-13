@@ -5,9 +5,9 @@ import random
 
 game_width=700
 game_height=700
-speed=500
+speed=150
 space_size=50
-body_parts=3
+body_parts=2
 snake_clor="#00FF7F"
 food_color="#FF6103"
 background_color="#7F7FFF"
@@ -35,10 +35,9 @@ class Food :
 
 def next_turn(Snake,food):
     x,y=Snake.coordinates[0]
-    z=food.coordinates[0]
-    w=food.coordinates[1]
-    print(x,y)
-    print(z,w)
+    z,w=Snake.coordinates[1]
+    a=(x+z)/2
+    b=(y+w)/2
     if direction=="up":
         y-=space_size
     if direction=="down":
@@ -50,8 +49,8 @@ def next_turn(Snake,food):
     Snake.coordinates.insert(0,(x,y))
     square=canvas.create_rectangle(x,y,x+space_size,y+space_size,fill=snake_clor)
     Snake.squares.insert(0,square)
-    print(( x-20 < food.coordinates[0]<x+20) and (y-20<food.coordinates[1]<y+20))
-    if (( x-20< food.coordinates[0]<x+20) and (y-20<food.coordinates[1]<y+20)):
+    
+    if ((a-25<=food.coordinates[0]<=a+25)and (b-25<food.coordinates[1]<=b+25)):
         global score
         score += 1
         label.config(text="score:{}".format(score))
@@ -61,10 +60,10 @@ def next_turn(Snake,food):
         del Snake.coordinates[-1]
         canvas.delete(Snake.squares[-1])
         del Snake.squares[-1]
-    """if check_collision(Snake):
+    if check_collision(Snake):
         game_over()
-    else:"""
-    window.after(speed,next_turn,Snake,food)
+    else:
+        window.after(speed,next_turn,Snake,food)
 
 def change_direction(new_direction):
     global direction 
