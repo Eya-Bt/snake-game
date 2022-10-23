@@ -5,7 +5,7 @@ import random
 
 game_width=700
 game_height=700
-speed=150
+speed=300
 space_size=50
 body_parts=2
 snake_clor="#00FF7F"
